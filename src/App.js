@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 // import logo from './logo.svg';
 import './App.css';
 
-import ToggleButton from 'react-toggle-button';
-
 const deckCreator = () => {
   const cardValues = [
     '2',
@@ -98,6 +96,7 @@ class App extends Component {
     this.draw = this.draw.bind(this);
     this.sortDrawnCards = this.sortDrawnCards.bind(this);
     this.reset = this.reset.bind(this);
+    this.toggleFaceUp = this.toggleFaceUp.bind(this);
   }
 
   shuffle() {
@@ -191,6 +190,12 @@ class App extends Component {
     });
   }
 
+  toggleFaceUp() {
+    this.setState(prevState => ({
+      faceUpDeck: !prevState.faceUpDeck,
+    }));
+  }
+
   render() {
     return (
       <div className="App">
@@ -206,7 +211,7 @@ class App extends Component {
               suit={card[1]}
               faceUp={this.state.faceUpDeck}
             />
-          ))}{' '}
+          ))}
         </div>
         <button onClick={this.shuffle}>Shuffle deck</button>
         <button onClick={this.sort}>Sort</button>
@@ -245,15 +250,14 @@ class App extends Component {
               Reset
             </button>
             <br />
-            Cards face up
-            <ToggleButton
-              value={this.state.faceUpDeck || false}
-              onToggle={value => {
-                this.setState({
-                  faceUpDeck: !value,
-                });
-              }}
+            <input
+              type="checkbox"
+              name="cardsFaceUp"
+              value={this.state.faceUpDeck}
+              checked={this.state.faceUpDeck}
+              onClick={this.toggleFaceUp}
             />
+            Cards face up
           </div>
         </footer>
       </div>
