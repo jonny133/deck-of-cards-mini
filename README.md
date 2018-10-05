@@ -6,11 +6,13 @@ https://gallant-allen-471464.netlify.com/
 
 ## Run (dev)
 
-````
+```
 npm install
-npm start```
+npm start
+```
 
 ## Build
 
-`npm run build`
-````
+```
+npm run build
+```
