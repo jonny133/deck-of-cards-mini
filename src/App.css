@@ -3,19 +3,19 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
+  animation: App-logo-spin infinite 20s linear;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #282c34;
   color: white;
+  font-size: calc(10px + 2vmin);
 }
 
 .App-link {
@@ -23,10 +23,64 @@
 }
 
 @keyframes App-logo-spin {
+
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.card {
+  min-width: 50px;
+  height: 80px;
+  border: 1px solid black;
+  margin: 5px 0;
+  background-color: white;
+  border-radius: 5%;
+}
+
+.card--back {
+  background-color: blue;
+
+  /* background-image: url('https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ffilletfamilyblog.files.wordpress.com%2F2013%2F02%2Fd0490860-0-large.jpg&f=1'); */
+}
+
+.card__facedown {
+  background-color: blue;
+  color: blue;
+  visibility: hidden;
+}
+
+.card .value,
+.card .suit {
+  text-align: left;
+}
+
+.card .value--bottom,
+.card .suit--bottom {
+  text-align: right;
+}
+
+.card--red-suit {
+  color: red;
+}
+
+.cardContainer {
+  display: flex;
+  overflow: auto;
+  max-width: 100vw;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+button.reset {
+  margin: 50px;
+}
+
+footer {
+  margin: 100px 0 0;
 }

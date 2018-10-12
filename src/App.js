@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-// import logo from './logo.svg';
-import './App.css';
+import Card from './Card';
+import './App.scss';
 
 const deckCreator = () => {
   const cardValues = [
@@ -40,44 +39,6 @@ const standardDeck = [
   ...suits.diamonds,
 ];
 
-const Card = props => {
-  const suitIconMap = {
-    c: '♣',
-    s: '♠',
-    h: '♥',
-    d: '♦',
-  };
-
-  const val = props.value === 'T' ? '10' : props.value;
-  const suit = props.suit;
-
-  let cardContent = '';
-  let cardStyle = 'card';
-  if (!props.faceUp) {
-    cardContent += ' card__facedown';
-    cardStyle += ' card--back';
-  }
-  if (props.suit === 'd' || props.suit === 'h') {
-    cardContent += ' card--red-suit';
-  }
-
-  return (
-    <div className={cardStyle}>
-      <div className={cardContent}>
-        <div className="value">{val}</div>
-        <div className="suit">{suitIconMap[suit]}</div>
-        <div className="suit--bottom">{suitIconMap[suit]}</div>
-        <div className="value--bottom">{val}</div>
-      </div>
-    </div>
-  );
-};
-
-Card.propTypes = {
-  suit: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-};
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -89,17 +50,17 @@ class App extends Component {
       faceUpDeck: false,
     };
 
-    this.shuffle = this.shuffle.bind(this);
-    this.sort = this.sort.bind(this);
-    this.incrementDrawNum = this.incrementDrawNum.bind(this);
-    this.decrementDrawNum = this.decrementDrawNum.bind(this);
-    this.draw = this.draw.bind(this);
-    this.sortDrawnCards = this.sortDrawnCards.bind(this);
-    this.reset = this.reset.bind(this);
-    this.toggleFaceUp = this.toggleFaceUp.bind(this);
+    // this.shuffle = this.shuffle.bind(this);
+    // this.sort = this.sort.bind(this);
+    // this.incrementDrawNum = this.incrementDrawNum.bind(this);
+    // this.decrementDrawNum = this.decrementDrawNum.bind(this);
+    // this.draw = this.draw.bind(this);
+    // this.sortDrawnCards = this.sortDrawnCards.bind(this);
+    // this.reset = this.reset.bind(this);
+    // this.toggleFaceUp = this.toggleFaceUp.bind(this);
   }
 
-  shuffle() {
+  shuffle = () => {
     // Knuth-Fisher-Yates shuffle algorithm
     let arr = this.state.cards;
     for (let i = arr.length - 1; i > 0; i -= 1) {
@@ -110,9 +71,9 @@ class App extends Component {
     }
 
     this.setState({ cards: arr });
-  }
+  };
 
-  sort() {
+  sort = () => {
     let sortedDeck = [];
 
     for (let i = 0; i < standardDeck.length; i += 1) {
@@ -122,24 +83,24 @@ class App extends Component {
     }
 
     this.setState({ cards: sortedDeck });
-  }
+  };
 
-  incrementDrawNum() {
+  incrementDrawNum = () => {
     this.setState(prevState => ({
       numberToDraw: Math.min(
         prevState.numberToDraw + 1,
         this.state.cards.length,
       ),
     }));
-  }
+  };
 
-  decrementDrawNum() {
+  decrementDrawNum = () => {
     this.setState(prevState => ({
       numberToDraw: Math.max(0, prevState.numberToDraw - 1),
     }));
-  }
+  };
 
-  draw(sorted = true) {
+  draw = (sorted = true) => {
     const { numberToDraw, cards } = this.state;
 
     // // increment/decrement counters limit this now.
@@ -166,9 +127,9 @@ class App extends Component {
     });
 
     // return drawn;
-  }
+  };
 
-  sortDrawnCards() {
+  sortDrawnCards = () => {
     const { drawnCards } = this.state;
     let sortedCards = [];
     for (let i = 0; i < standardDeck.length; i += 1) {
@@ -180,21 +141,21 @@ class App extends Component {
     this.setState({
       drawnCards: sortedCards,
     });
-  }
+  };
 
-  reset() {
+  reset = () => {
     this.setState({
       cards: [...standardDeck],
       numberToDraw: 4,
       drawnCards: null,
     });
-  }
+  };
 
-  toggleFaceUp() {
+  toggleFaceUp = () => {
     this.setState(prevState => ({
       faceUpDeck: !prevState.faceUpDeck,
     }));
-  }
+  };
 
   render() {
     return (
@@ -203,63 +164,111 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           {deck.cards}
         </header> */}
-        <h1>Deck of Cards</h1>
-        <div className="cardContainer">
-          {this.state.cards.map(card => (
-            <Card
-              value={card[0]}
-              suit={card[1]}
-              faceUp={this.state.faceUpDeck}
-            />
-          ))}
-        </div>
-        <button onClick={this.shuffle}>Shuffle deck</button>
-        <button onClick={this.sort}>Sort</button>
 
-        <div>
-          <h2>Draw cards</h2>
-          <button onClick={this.decrementDrawNum}>-</button>
-          {/* {this.state.numberToDraw} */}
-
-          {/* <br /> */}
-          <button onClick={this.draw}>
-            Draw top {this.state.numberToDraw}
-          </button>
-          <button onClick={this.incrementDrawNum}>+</button>
-          {this.state.drawnCards && (
-            <h3>
-              <br />
-              Drawn cards:
-            </h3>
-          )}
-          <div className="cardContainer">
-            {this.state.drawnCards &&
-              this.state.drawnCards.map(card => (
-                <Card value={card[0]} suit={card[1]} faceUp={true} />
-              ))}{' '}
+        <section className="content section">
+          <h1 className="title">Deck of Cards</h1>
+          <div className="box">
+            <div className="cardContainer">
+              {this.state.cards.map(card => (
+                <Card
+                  key={card}
+                  value={card[0]}
+                  suit={card[1]}
+                  faceUp={this.state.faceUpDeck}
+                />
+              ))}
+            </div>
+            <button
+              onClick={this.shuffle}
+              className="button is-primary btn--shuffle"
+            >
+              Shuffle deck
+            </button>
+            <button onClick={this.sort} className="button btn--sort">
+              Sort
+            </button>
           </div>
-          {this.state.drawnCards && (
-            <button onClick={this.sortDrawnCards}>Sort drawn cards</button>
-          )}
-          {/* {this.state.drawnCards} */}
-        </div>
+        </section>
 
-        <footer>
-          <div>
-            <button onClick={this.reset} className="reset">
+        <section className=" section content">
+          <div className="box">
+            <h2 className="title">Draw cards</h2>
+            <button
+              onClick={this.decrementDrawNum}
+              className="button btn--draw-one-less"
+            >
+              -
+            </button>
+            {/* {this.state.numberToDraw} */}
+
+            {/* <br /> */}
+            <button onClick={this.draw} className="button is-primary btn--draw">
+              Draw top {this.state.numberToDraw}
+            </button>
+            <button
+              onClick={this.incrementDrawNum}
+              className="button btn--draw-one-more"
+            >
+              +
+            </button>
+            {this.state.drawnCards && (
+              <h3>
+                <br />
+                Drawn cards
+              </h3>
+            )}
+            <div className="cardContainer">
+              {this.state.drawnCards &&
+                this.state.drawnCards.map(card => (
+                  <Card
+                    key={card}
+                    value={card[0]}
+                    suit={card[1]}
+                    faceUp={true}
+                  />
+                ))}{' '}
+            </div>
+            {this.state.drawnCards && (
+              <button
+                onClick={this.sortDrawnCards}
+                className="button is-success"
+              >
+                Sort drawn cards
+              </button>
+            )}
+            {/* {this.state.drawnCards} */}
+          </div>
+        </section>
+
+        <section className="section content">
+          <div id="options" className="box">
+            <h2 className="title">Options</h2>
+
+            <label>
+              <input
+                type="checkbox"
+                name="cardsFaceUp"
+                value={this.state.faceUpDeck}
+                checked={this.state.faceUpDeck}
+                onChange={this.toggleFaceUp}
+              />{' '}
+              Cards face up
+            </label>
+            <label className="has-text-grey-light">
+              <input type="checkbox" className="disabled" disabled readOnly />{' '}
+              Enable animation (not implemented yet)
+            </label>
+            <br />
+            <br />
+
+            <button
+              onClick={this.reset}
+              className="reset button is-danger btn--reset"
+            >
               Reset
             </button>
-            <br />
-            <input
-              type="checkbox"
-              name="cardsFaceUp"
-              value={this.state.faceUpDeck}
-              checked={this.state.faceUpDeck}
-              onClick={this.toggleFaceUp}
-            />
-            Cards face up
           </div>
-        </footer>
+        </section>
       </div>
     );
   }
