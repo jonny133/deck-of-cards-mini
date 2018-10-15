@@ -75,9 +75,9 @@ describe('app', () => {
     expect(app.state().drawnCards).toBe(null);
   });
 
-  it('shows cards face down by default', () => {
-    expect(app.state().faceUpDeck).toBe(false);
-  });
+  // it('shows cards face down by default', () => {
+  //   expect(app.state().faceUpDeck).toBe(false);
+  // });
 
   it('resets when reset button pressed', () => {
     app.find('.btn--reset').simulate('click');
