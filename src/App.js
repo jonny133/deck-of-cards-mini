@@ -47,7 +47,7 @@ class App extends Component {
       cards: [...standardDeck],
       numberToDraw: 4,
       drawnCards: null,
-      faceUpDeck: false,
+      faceUpDeck: true,
     };
 
     // this.shuffle = this.shuffle.bind(this);
