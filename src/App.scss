@@ -5,7 +5,7 @@
 // Must call variables before importing bulma
 $primary: rgb(89, 39, 136);
 $body-background-color: #e9e8e3;
-$section-padding: 0.5rem 2rem;
+$section-padding: 0.25rem 2rem;
 @import '../node_modules/bulma/bulma.sass';
 
 body {
